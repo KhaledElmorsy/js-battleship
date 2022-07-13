@@ -9,7 +9,7 @@ export default class Ship {
    * @param {number} shipLength The length of the array representing the ship. Should be greater than 0.
    */
   constructor(shipLength) {
-    this.hits = Array.from({ length: shipLength }, () => new Space());
+    this.hits = Array.from({ length: shipLength }, () => new Space(this));
   }
 
   /**

@@ -1,30 +1,38 @@
 import Space from '../src/space';
 import Ship from '../src/ship';
 
-describe('Test that the constructor', () => {
+let testShip;
+
+beforeEach(() => {
+  testShip = new Ship(3);
+});
+
+describe('Constructor', () => {
+  it('creates the hits array with the proper length', () => {
+    expect(testShip.hits.length).toBe(3);
+  });
   it('creates a array of space objects', () => {
-    let space = new Space;
-    expect(new Ship(3).hits).toEqual([space, space, space]);
+    const nonSpaces = testShip.hits
+      .map((val) => val instanceof Space)
+      .includes(false);
+    expect(nonSpaces).toBe(false);
+  });
+  it('assigns itself as space\'s parent', () => {
+    expect(testShip.hits[0].parent).toBe(testShip);
   });
 });
 
 describe('Methods:', () => {
-  let ship;
-
-  beforeEach(() => {
-    ship = new Ship(3);
-  });
-
-  describe('Test that isSunk()', () => {
+  describe('isSunk():', () => {
     it('returns false if the hit array contains at least one false', () => {
-      ship.hits[0].hit();
-      expect(ship.isSunk()).toBe(false);
+      testShip.hits[0].hit();
+      expect(testShip.isSunk()).toBe(false);
     });
     it('returns true if the hit array is all true', () => {
-      ship.hits[0].hit();
-      ship.hits[1].hit();
-      ship.hits[2].hit();
-      expect(ship.isSunk()).toBe(true);
+      testShip.hits[0].hit();
+      testShip.hits[1].hit();
+      testShip.hits[2].hit();
+      expect(testShip.isSunk()).toBe(true);
     });
   });
 });
