@@ -50,8 +50,8 @@ export default class Gameboard {
    */
   canPlace(position, ship) {
     const {col, row, horizontal} = position;
-    const maxRow = row + (!horizontal && ship.hits.length);
-    const maxCol = col + (horizontal && ship.hits.length);
+    const maxRow = row + (!horizontal && ship.hits.length - 1);
+    const maxCol = col + (horizontal && ship.hits.length - 1);
     if (maxCol > 14 || maxRow > 14) return false;
 
     const board = this.board;
