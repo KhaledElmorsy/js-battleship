@@ -73,15 +73,17 @@ export default class Gameboard {
 
   findValidPosition(ship) {
     let position;
-    do {
+    const maxIterations = 100000;
+    for (let i = 0; i < maxIterations; i++) {
       position = {
         col: Math.floor(Math.random() * 15),
         row: Math.floor(Math.random() * 15),
         horizontal: Math.random() < 0.5,
       };
-    } while (!this.canPlace(position, ship));
-    return position;
-  }
+      if (this.canPlace(position, ship)) return position;
+    };
+    return null;
+  };
   
   /**
    * Calls a space's hit function

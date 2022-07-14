@@ -110,6 +110,10 @@ describe('Methods:', () => {
         expect(testBoard.canPlace(testPosition,testShip)).toBe(true);
         expect(testPosition).toEqual({ col: 0, row: 14, horizontal: true });
       });
+      it('returns null if it can\'t find a valid position', () => {
+        const invalidShip = new Ship(16);
+        expect(testBoard.findValidPosition(invalidShip)).toBe(null)
+      })
     });
   });
   describe('attack():', () => {
