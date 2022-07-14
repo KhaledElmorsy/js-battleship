@@ -71,6 +71,12 @@ export default class Gameboard {
     return true;
   }
 
+  /**
+   * Randomly generate a valid position for a ship according to the gameboard's state.
+   * @param {Ship} ship Ship object
+   * @returns {{col:number, row: number, horizontal: boolean}|null} Position object if it 
+   * finds a position. Otherwise, null.
+   */
   findValidPosition(ship) {
     let position;
     const maxIterations = 100000;
