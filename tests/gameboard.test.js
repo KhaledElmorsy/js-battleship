@@ -115,6 +115,34 @@ describe('Methods:', () => {
         expect(testBoard.findValidPosition(invalidShip)).toBe(null)
       })
     });
+    describe('autoPlaceShips():', () => {
+      it('calls placeShip() for each valid ship in the ship array', () => {
+        const shipQuantity = 8;
+        const shipArray = Array.from({length: shipQuantity}, () => new Ship(2));
+        testBoard.placeShip = jest.fn();
+        testBoard.autoPlaceShips(shipArray);
+        expect(testBoard.placeShip.mock.calls.length).toBe(shipQuantity);
+      });
+      it('returns true if all ships were placed', () => {
+        const shipArray = Array.from({length: 3}, () => new Ship(2));
+        expect(testBoard.autoPlaceShips(shipArray)).toBe(true);
+      });
+      describe('handles failed placements:', () => {
+        let shipArray;
+        beforeAll(() => {
+          shipArray = Array.from({length: 3}, () => new Ship(2));
+          shipArray.push(new Ship(16));
+        });
+        it('returns false if it failed to place a ship', () => {
+          expect(testBoard.autoPlaceShips(shipArray)).toBe(false);
+        });
+        it('restores the gameboard if it fails to place a ship', () => {
+          const originalBoard = { ...testBoard.board };
+          testBoard.autoPlaceShips(shipArray);
+          expect(testBoard.board).toEqual(originalBoard);
+        });
+      });
+    });
   });
   describe('attack():', () => {
     it('calls the correct space\'s hit function', () => {
