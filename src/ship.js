@@ -10,15 +10,17 @@ export default class Ship {
    */
   constructor(shipLength) {
     this.hits = Array.from({ length: shipLength }, () => new Space(this));
+    this.isSunk = false;
   }
 
   /**
    * Checks if the ship has sunk or not by checking the hit array. If the hit
-   * array values are all true, return true, if there's at least one false,
-   * return false.
+   * array values are all true, set the isSunk property to true and return it, 
+   * if there's at least one false, return false.
    * @returns {boolean}
    */
-  isSunk() {
-    return !this.hits.find((space) => !space.isHit);
+  checkSunk() {
+    this.isSunk = !this.hits.find((space) => !space.isHit);
+    return this.isSunk;
   }
 }
