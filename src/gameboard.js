@@ -19,12 +19,14 @@ export default class Gameboard {
    * 
    * Board: [E][E][E]. Ship: [A][B][C] ==> Board: [A][B][C]
    * 
-   * @param {number} col The origin's index at the inner array - Must be < 15
-   * @param {number} row The origin's index at the outer array - Must be < 15
-   * @param {boolean} horizontal True: Increment to the right. False: Increment down
+   * @param {Object} position The Coordinates and orientation of the ship
+   * @param {number} position.col Index of the origin at the outer array - Must be < 15
+   * @param {number} position.row Index of the origin at the inner array - Must be < 15
+   * @param {boolean} position.horizontal True: Increment to the right. False: Increment down
    * @param {Ship} ship The ship object to assign the space references from
    */
-  placeShip(col, row, horizontal, ship) {
+  placeShip(position, ship) {
+    const { col, row, horizontal } = position;
     ship.hits.forEach((space, i) => {
       this.board[row + (!horizontal && i)][col + (horizontal && i)] = space;
     });
@@ -39,13 +41,15 @@ export default class Gameboard {
    * 
    * Returns **false** if any of the rules aren't satisfied. Otherwise returns **true**.
    * 
-   * @param {number} col Index of the origin at the outer array - Must be < 15
-   * @param {number} row Index of the origin at the inner array - Must be < 15
-   * @param {boolean} horizontal True: Increment to the right. False: Increment down
+   * @param {Object} position Contains the coordinates and orientation to check
+   * @param {number} position.col Index of the origin at the outer array - Must be < 15
+   * @param {number} position.row Index of the origin at the inner array - Must be < 15
+   * @param {boolean} position.horizontal True: Increment to the right. False: Increment down
    * @param {Ship} ship The new ship object to try to place
    * @returns {boolean}
    */
-  canPlace(col, row, horizontal, ship) {
+  canPlace(position, ship) {
+    const {col, row, horizontal} = position;
     const maxRow = row + (!horizontal && ship.hits.length);
     const maxCol = col + (horizontal && ship.hits.length);
     if (maxCol > 14 || maxRow > 14) return false;
@@ -65,6 +69,18 @@ export default class Gameboard {
       }
     }
     return true;
+  }
+
+  findValidPosition(ship) {
+    let position;
+    do {
+      position = {
+        col: Math.floor(Math.random() * 15),
+        row: Math.floor(Math.random() * 15),
+        horizontal: Math.random() < 0.5,
+      };
+    } while (!this.canPlace(position, ship));
+    return position;
   }
   
   /**
