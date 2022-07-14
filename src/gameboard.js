@@ -92,8 +92,8 @@ export default class Gameboard {
   };
 
   /**
-   * Randomly place an array of ships onto the gameboard. If it fails at placing -
-   * a ship in the array, it restores the board to its original state returns **false**.
+   * Randomly place an array of ships onto the gameboard. If it fails at placing
+   * a ship, it restores the board to its original state returns **false**.
    * @param {Ship[]} ships An array of ship objects
    * @returns {boolean}  True if successful. False if failed.
    */
