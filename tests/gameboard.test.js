@@ -87,13 +87,30 @@ describe('Methods:', () => {
       });
     });
     describe('findValidPosition()', () => {
-      it('accepts a ship obj, and returns index coords and orientation', () => {
+      it('returns an object containing index coords and orientation', () => {
         const position = testBoard.findValidPosition(testShip1);
         expect(typeof position.col).toBe('number');
         expect(typeof position.row).toBe('number');
         expect(typeof position.horizontal).toBe('boolean');
       });
-    })
+      it('returns a position that can be placed on the board', () => {
+        const longShip = new Ship(13);
+        const longShipPos = { col: 7, row: 0, horizontal: false };
+        testBoard.placeShip(longShipPos, longShip);
+        
+        const crossShip1 = new Ship(7);
+        const crossShip1Pos = { col: 0, row: 4, horizontal: true };
+        const crossShip2 = new Ship(7);
+        const crossShip2pos = { col: 8, row: 4, horizontal: true };
+        testBoard.placeShip(crossShip1Pos, crossShip1);
+        testBoard.placeShip(crossShip2pos, crossShip2);
+
+        const testShip = new Ship(15);
+        const testPosition = testBoard.findValidPosition(testShip);
+        expect(testBoard.canPlace(testPosition,testShip)).toBe(true);
+        expect(testPosition).toEqual({ col: 0, row: 14, horizontal: true });
+      });
+    });
   });
   describe('attack():', () => {
     it('calls the correct space\'s hit function', () => {
