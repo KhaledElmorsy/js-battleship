@@ -118,7 +118,7 @@ export default class Gameboard {
    * @param {number} row Index of the outer array (< 15)
    * @return {Ship|undefined} - Parent of the hit space
    */
-  attack(col, row) {
+  receiveAttack(col, row) {
     this.board[row][col].hit();
     return this.board[row][col].parent;
   }

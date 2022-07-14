@@ -144,17 +144,17 @@ describe('Methods:', () => {
       });
     });
   });
-  describe('attack():', () => {
+  describe('receiveAttack():', () => {
     it('calls the correct space\'s hit function', () => {
       testBoard.board[0][0].hit = jest.fn();
-      testBoard.attack(0,0);
+      testBoard.receiveAttack(0,0);
       expect(testBoard.board[0][0].hit).toHaveBeenCalled();
     });
     it('returns the attacked space\'s parent', () => {
       const testShip = new Ship(3);
       const position = { col: 0, row: 0, horizontal: true }
       testBoard.placeShip(position, testShip);
-      expect(testBoard.attack(0,0)).toBe(testShip);
+      expect(testBoard.receiveAttack(0,0)).toBe(testShip);
     });
   });
   describe('checkHit():', () => {
