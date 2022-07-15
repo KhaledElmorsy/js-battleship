@@ -11,25 +11,26 @@ import Ship from './ship';
  */
 export default class Player {
   /**
-   * @param {string} name Player's name
-   * @param {boolean} isPC Wheter the player's human or a PC
-   * @param {Gameboard} gameboard The player's gameboard object
-   * @param {Ship[]} ships The player's array of ships
+   * @param {Object} playerData Object containing needed data to create a new player
+   * @param {string} playerData.name Player's name
+   * @param {boolean} playerData.isPC Wheter the player's PC or a human
+   * @param {Gameboard} playerData.gameboard The player's gameboard object
+   * @param {Ship[]} playerData.ships The player's array of ships
    */
-  constructor(name, isPC, gameboard, ships) {
-    /**@type {stromg} */
-    this.name = name;
+  constructor(playerData) {
+    /**@type {string} */
+    this.name = playerData.name;
     
     /**@type {boolean} */
-    this.isPC = isPC;
+    this.isPC = playerData.isPC;
 
     /**@type {Gameboard} */
-    this.board = gameboard;
+    this.board = playerData.gameboard;
 
     /**@type {Ship[]} */
-    this.ships = ships;
+    this.ships = playerData.ships;
 
-    /**@type {Boolean} */
+    /**@type {boolean} */
     this.lost = false;
   }
 
