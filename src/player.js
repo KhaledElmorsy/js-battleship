@@ -20,7 +20,7 @@ export default class Player {
   constructor(playerData) {
     /**@type {string} */
     this.name = playerData.name;
-    
+
     /**@type {boolean} */
     this.isPC = playerData.isPC;
 
@@ -35,6 +35,34 @@ export default class Player {
   }
 
   /**
+   * Create an array of player instances from an array of basic player info objects 
+   * and based on a common set of ship lengths.
+   * 
+   * The Gameboard and Ship classes that'll be used to instantiate their boards
+   * and ships need to be injected. 
+   * @param {Object} data Player info arrays and dependencies
+   * @param {{name: string, isPC: boolean}[]} data.players Array of objects with each player's name and whether they're a PC
+   * @param {number[]} data.shipLengths Array containing the lengths of each ship to instantiate. Must have at least one value
+   * @param {typeof Gameboard} data.Gameboard Base gameboard class to instantiate for each player
+   * @param {typeof Ship} data.Ship Base Ship class to instatiate for each player
+   * @returns {Player[]} Array of players
+   */
+  static createPlayerList(data) {
+    const playerList = [];
+    data.players.forEach((player) => {
+      playerList.push(
+        new Player({
+          name: player.name,
+          isPC: player.isPC,
+          gameboard: new data.Gameboard(),
+          ships: Array.from(data.shipLengths, (len) => new data.Ship(len)),
+        })
+      );
+    });
+    return playerList;
+  }
+
+  /**
    * Trigger an enemy's board's receiveAttack() function on a specific space.
    * @param {Player} enemyPlayer Enemy player to attack
    * @param {number} col Index in board's inner array < 15
@@ -46,7 +74,7 @@ export default class Player {
   }
 
   /**
-   * Checks if all the player's ships have sank, and sets their **lost** property 
+   * Checks if all the player's ships have sank, and sets their **lost** property
    * to true and returns it. Otherwise returns false.
    * @returns {boolean}
    */

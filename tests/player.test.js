@@ -2,7 +2,7 @@ import Player from '../src/player';
 import Gameboard from '../src/gameboard';
 import Ship from '../src/ship';
 
-jest.mock('../src/ship');
+jest.mock('../src/ship')
 jest.mock('../src/gameboard');
 
 let playerData;
@@ -73,6 +73,38 @@ describe('Methods:', () => {
       testPlayer.ships[1].isSunk = false;
       expect(testPlayer.checkLost()).toBe(false);
     });
+  describe('createPlayerList():', () => {
+    it('creates an array of player objects that match the input data', () => {
+      const players = [
+        {name: 'Test1', isPC: false },
+        {name: 'Test2', isPC: true }
+      ];
+      const shipLengths = [2, 3, 4];
 
+      const playerList = Player.createPlayerList({
+        players,
+        shipLengths,
+        Gameboard,
+        Ship
+      });
+
+      const actualPlayer1 = new Player({
+        name: players[0].name,
+        isPC: players[0].isPC,
+        gameboard: new Gameboard(),
+        ships: Array.from(shipLengths, (len) => new Ship(len))
+      })
+
+      const actualPlayer2 = new Player({
+        name: players[1].name,
+        isPC: players[1].isPC,
+        gameboard: new Gameboard(),
+        ships: Array.from(shipLengths, (len) => new Ship(len))
+      });
+      expect(JSON.stringify(playerList[0])).toEqual(JSON.stringify(actualPlayer1));
+      expect(JSON.stringify(playerList[1])).toEqual(JSON.stringify(actualPlayer2));
+      expect(playerList.length).toBe(2);
+    })
+  })
   })
 })
