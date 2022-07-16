@@ -1,4 +1,4 @@
-import { createElement } from "../helpers"
+import { createElement } from "../../viewHelpers"
 
 const elementHTML = 
 `<div id="new-game">
