@@ -1,0 +1,103 @@
+:root{
+    font-size: 25px;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body {
+    height: 100vh;
+    width: 100vw;
+
+    display: grid;
+    grid-template-areas: "header header"
+                         "main main"
+                         "hud hud";
+    grid-template-rows: 80px 1fr 170px;
+    grid-template-columns: 200px 1fr;
+}
+
+header {
+    height: 80px;
+    width: 100%;
+    grid-area: header;
+
+    display: grid;
+    place-items: center;
+
+    font-size: 2rem;
+    box-shadow: 0 0 5px rgba(0,0,0,0.3);
+}
+
+main {
+    display: flex;
+    grid-area: main;
+}
+
+#add-ships {
+    width: 300px;
+    height: 100%;
+
+    transition: 800ms ease-out;
+    box-shadow: 0 0 5px rgba(0,0,0,0.3);
+}
+
+#play-area{
+    width: max(1200px, 100%);
+    height: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.board {
+    display: grid;
+    grid-template: repeat(15, 30px) / repeat(15, 30px);
+    gap: 5px;
+}
+
+.board .ship {
+    background-color: darkgreen;
+}
+
+.space {
+    cursor: pointer;
+    transition: 200ms ease-out;
+    background-color: rgb(223, 245, 246);
+    box-shadow: inset 1px 1px 1px rgba(0,0,0,0.3);
+}
+
+.space:hover{
+    background-color: rgb(199, 234, 235);
+    box-shadow: inset 1px 1px 6px rgba(0,0,0,0.3);
+}
+
+#hud {
+    grid-area: hud;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#new-game {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+#name-input {
+    font-size: 1.6rem;
+    text-align: center;
+}
+
+#start-button {
+    width: 200px;
+    height: 60px;
+    display: grid;
+    place-items: center;
+    font-size: 1.7rem;
+}
