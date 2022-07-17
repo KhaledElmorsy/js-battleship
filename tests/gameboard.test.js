@@ -142,6 +142,14 @@ describe('Methods:', () => {
           expect(testBoard.board).toEqual(originalBoard);
         });
       });
+    })
+    describe('resetBoard():' , () => {
+      it('removes placed ships', () => {
+        const position = { col: 0, row: 0, horizontal: true };
+        testBoard.placeShip(position,testShip1);
+        testBoard.resetBoard();
+        expect(testBoard.board[0][0].parent).toBe(undefined);
+      });
     });
   });
   describe('receiveAttack():', () => {

@@ -132,4 +132,16 @@ export default class Gameboard {
   checkHit(col, row) {
     return this.board[row][col].isHit
   }
+
+  /**
+   * Removes all the ships that are placed on the board by resetting each space 
+   * object's 'parent' property back to unerfined
+   */
+  resetBoard() {
+    this.board.forEach((row, i) => {
+      row.forEach((space, j) => {
+        this.board[i][j] = new Space();
+      });
+    });
+  }
 }
