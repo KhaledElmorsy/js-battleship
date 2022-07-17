@@ -1,9 +1,10 @@
-import addShips from './addShips';
+import drawBoard from './drawBoard';
 import newGame from './newGame';
 import setUpPlayers from './setUpPlayers';
 
 export default {
   addShips,
   newGame,
-  setUpPlayers
+  setUpPlayers,
+  drawBoard,
 }
