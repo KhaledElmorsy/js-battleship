@@ -1,4 +1,5 @@
 import view from './view';
+import './style.css'
 
 export default async function newGame() {
   view.show();
