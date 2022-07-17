@@ -1,5 +1,5 @@
-import Player from '../../player';
-import { createElement } from '../helpers';
+import Player from '../../../player';
+import { createElement } from '../../viewHelpers';
 
 /**
  *
@@ -12,7 +12,7 @@ export default function board(player, playerListIndex) {
     (row, i) => row.forEach(
       (cell, j) => {
         const shipClass = cell.parent ? 'ship' : '';
-        elementHTML += `<div class="space ${shipClass}" data-row="${i}" data-column="${j}"></div>`
+        elementHTML += `<div class="space ${shipClass}" data-row="${i}" data-col="${j}"></div>`
       }
     )
   );
