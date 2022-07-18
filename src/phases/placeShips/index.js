@@ -1,11 +1,11 @@
 import './style.css';
 import addShipView from './view';
 
-export default async function placeShips({ boardViews, playerList }) {
+export default async function placeShips(players) {
   const view = addShipView();
-  const mainPlayer = playerList[0];
+  const mainPlayer = players[0];
   const board = mainPlayer.board;
-  const mainBoardView = boardViews[0];
+  const mainBoardView = mainPlayer.boardView;
   const spaceElements = mainBoardView.spaceElements;
   let horizontal = true;
 
@@ -40,7 +40,7 @@ export default async function placeShips({ boardViews, playerList }) {
       view.updatePreviewLength(ship.hits.length);
       spaceElements.forEach((space) => {
         space.onmouseover = () => highlight(ship, space);
-        space.onmouseleave = boardViews[0].unhighlightAll;
+        space.onmouseleave = mainBoardView.unhighlightAll;
         space.onclick = () => resolvePosition(ship, space, resolve);
       });
     });
@@ -90,5 +90,5 @@ export default async function placeShips({ boardViews, playerList }) {
 
   await setShips();
   await view.end();
-  return { boardViews, playerList };
+  return players;
 }

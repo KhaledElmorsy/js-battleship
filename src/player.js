@@ -41,16 +41,16 @@ export default class Player {
    * The Gameboard and Ship classes that'll be used to instantiate their boards
    * and ships need to be injected. 
    * @param {Object} data Player info arrays and dependencies
-   * @param {{name: string, isPC: boolean}[]} data.players Array of objects with each player's name and whether they're a PC
+   * @param {{name: string, isPC: boolean}[]} data.playerList Array of objects with each player's name and whether they're a PC
    * @param {number[]} data.shipLengths Array containing the lengths of each ship to instantiate. Must have at least one value
    * @param {typeof Gameboard} data.Gameboard Base gameboard class to instantiate for each player
    * @param {typeof Ship} data.Ship Base Ship class to instatiate for each player
    * @returns {Player[]} Array of players
    */
-  static createPlayerList(data) {
-    const playerList = [];
-    data.players.forEach((player) => {
-      playerList.push(
+  static createPlayers(data) {
+    const players = [];
+    data.playerList.forEach((player) => {
+      players.push(
         new Player({
           name: player.name,
           isPC: player.isPC,
@@ -59,7 +59,7 @@ export default class Player {
         })
       );
     });
-    return playerList;
+    return players;
   }
 
   /**

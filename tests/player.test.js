@@ -75,14 +75,14 @@ describe('Methods:', () => {
     });
   describe('createPlayerList():', () => {
     it('creates an array of player objects that match the input data', () => {
-      const players = [
+      const playerList = [
         {name: 'Test1', isPC: false },
         {name: 'Test2', isPC: true }
       ];
       const shipLengths = [2, 3, 4];
 
-      const playerList = Player.createPlayerList({
-        players,
+      const players = Player.createPlayers({
+        playerList,
         shipLengths,
         Gameboard,
         Ship
@@ -101,8 +101,8 @@ describe('Methods:', () => {
         gameboard: new Gameboard(),
         ships: Array.from(shipLengths, (len) => new Ship(len))
       });
-      expect(JSON.stringify(playerList[0])).toEqual(JSON.stringify(actualPlayer1));
-      expect(JSON.stringify(playerList[1])).toEqual(JSON.stringify(actualPlayer2));
+      expect(JSON.stringify(players[0])).toEqual(JSON.stringify(actualPlayer1));
+      expect(JSON.stringify(players[1])).toEqual(JSON.stringify(actualPlayer2));
       expect(playerList.length).toBe(2);
     })
   })

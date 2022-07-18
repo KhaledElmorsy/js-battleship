@@ -9,22 +9,22 @@ import Ship from '../../ship';
  * @returns {Player[]}
  */
 export default async function setUpPlayers(playerName) {
-  const players = [
+  const playerList = [
     { name: playerName, isPC: false },
     { name: 'Computer', isPC: true },
   ];
   const shipLengths = [2, 2, 2, 3, 3, 4, 4, 5, 6];
 
-  const playerList = Player.createPlayerList({
-    players,
+  const players = Player.createPlayers({
+    playerList,
     shipLengths,
     Gameboard,
     Ship,
   });
 
-  playerList.forEach(player => {
+  players.forEach(player => {
     if (player.isPC) player.board.autoPlaceShips(player.ships);
   });
 
-  return playerList;
+  return players;
 }

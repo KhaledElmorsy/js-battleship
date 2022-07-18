@@ -1,10 +1,11 @@
 import boardView from './view';
 
-export default async function (playerList) {
-  const boardViews = Array.from(playerList, (player, i) =>
-    boardView(player, i)
-  );
-  boardViews.forEach(board => board.show());
+export default async function (players) {
+  players.forEach((player, i) => {
+    /** @type {boardView} */
+    player.boardView = boardView(player, i);
+    player.boardView.show();
+  })
 
-  return { boardViews, playerList }
+  return players
 }
