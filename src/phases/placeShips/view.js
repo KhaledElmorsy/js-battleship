@@ -1,4 +1,4 @@
-import { createElement } from "../viewHelpers";
+import { createElement, timeout, waitTransitions } from "../viewHelpers";
 
 export default function view() {
   const container = document.getElementById('hud');
@@ -14,6 +14,9 @@ export default function view() {
   const buttonContainer = createElement('<div id="add-ship-buttons"></div>');
 
   buttonContainer.append(rotateContainer, resetButton, saveButton);
+
+  const curtain = createElement('<div id="add-ship-curtain" class="hide"></div>')
+  const addComplete = createElement('<div id="add-complete" class="hide">Good luck!</div>')
   
   const buttons = {
     rotateButton,
@@ -25,8 +28,24 @@ export default function view() {
     container.appendChild(buttonContainer);
   }
 
-  function hide() {
-    container.removeChild(buttonContainer);
+  async function end() {
+    container.appendChild(curtain);
+    await timeout(0)
+    await waitTransitions('hide', true, curtain);
+    await timeout(400);
+
+    buttonContainer.remove();
+    
+    curtain.appendChild(addComplete);
+    await timeout(0)
+    await waitTransitions('hide', true, addComplete);
+    
+    await timeout(1000);
+    await waitTransitions('hide', false, addComplete, curtain);
+    await timeout(0);
+    
+    addComplete.remove();
+    curtain.remove();
   }
 
   function rotatePreivew() {
@@ -38,5 +57,5 @@ export default function view() {
     shipPreview.textContent = preview;
   }
 
-  return { show, hide, updatePreviewLength, rotatePreivew, rotatePreivew, buttons }
+  return { show, end, updatePreviewLength, rotatePreivew, rotatePreivew, buttons }
 }

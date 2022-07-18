@@ -87,8 +87,8 @@ export default async function placeShips({ boardViews, playerList }) {
       };
     });
   }
-  
-  await setShips();
 
+  await setShips();
+  await view.end();
   return { boardViews, playerList };
 }
