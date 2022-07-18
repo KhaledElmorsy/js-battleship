@@ -70,7 +70,21 @@ export default class Player {
    * @return {Ship|undefined} If a ship was hit, return that ship, otherwise return undefined.
    */
   attack(enemyPlayer, col, row) {
-    return enemyPlayer.board.receiveAttack(col, row);
+    return enemyPlayer.receiveAttack(col, row);
+  }
+
+  /**
+   * Receive an attack from another player. If the space that's hit is part of a ship,
+   * check if it sank, then check if the player lost.
+   * @param {number} col Gameboard inner array index
+   * @param {number} row Gameboard outer array index
+   */
+  receiveAttack(col, row) {
+    const hitShip = this.board.receiveAttack(col, row);
+    if (hitShip) {
+      hitShip.checkSunk();
+      this.checkLost();
+    }
   }
 
   /**

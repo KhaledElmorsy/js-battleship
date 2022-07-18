@@ -7,7 +7,7 @@ jest.mock('../src/gameboard');
 
 let playerData;
 let testPlayer;
-beforeAll(() => {
+beforeEach(() => {
   playerData = {
     name: 'Test',
     isPC: false,
@@ -37,26 +37,32 @@ describe('Constructor', () => {
 
 describe('Methods:', () => {
   describe('attack():', () => {
-    let enemyData;
-    let testEnemy;
-    beforeEach(() => {
-      enemyData = {
-        name: 'enemy',
-        isPC: false,
-        gameboard: new Gameboard(),
-        ships: Array.from([2, 2], (len) => new Ship(len)),
-      };
-      testEnemy = new Player(enemyData);
-    });
     it('calls the enemy\'s gameboard\'s receiveAttack()', () => {
+      const mockPlayer = jest.requireMock('../src/player').default
+      const testEnemy = new mockPlayer();
       testPlayer.attack(testEnemy, 0,0);
-      expect(testEnemy.board.receiveAttack.mock.calls.length).toBe(1);
-    });
-    it('returns the ship object that receiveAttack() returns', () => {
-      testEnemy.board.receiveAttack = jest.fn(() => 'ship');
-      expect(testPlayer.attack(testEnemy, 0, 0)).toBe('ship');
+      expect(testEnemy.receiveAttack.mock.calls.length).toBe(1);
     });
   });
+  describe('receiveAttack():' , () => {
+    it('calls gameboard\'s receive attack', () => {
+      testPlayer.receiveAttack(0,0);
+      expect(testPlayer.board.receiveAttack.mock.calls.length).toBe(1);
+    });
+    it('calls a hit ship\'s checkSunk()', () => {
+      const mockShip = new Ship();
+      testPlayer.board.receiveAttack = jest.fn(() => mockShip);
+      testPlayer.receiveAttack(0,0);
+      expect(mockShip.checkSunk.mock.calls.length).toBe(1);
+    });
+    it('calls checkLost() if a ship was hit', () => {
+      const mockShip = new Ship();
+      testPlayer.board.receiveAttack = jest.fn(() => mockShip);
+      testPlayer.checkLost = jest.fn();
+      testPlayer.receiveAttack(0,0);
+      expect(testPlayer.checkLost.mock.calls.length).toBe(1);     
+    })
+  })
   describe('checkLost():', () => {
     it('returns true if all the player\'s ships are sunk', () => {
       testPlayer.ships.forEach((ship) => ship.isSunk = true);
