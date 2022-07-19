@@ -41,7 +41,10 @@ export default async function placeShips(players) {
       spaceElements.forEach((space) => {
         space.onmouseover = () => highlight(ship, space);
         space.onmouseleave = mainBoardView.unhighlightAll;
-        space.onclick = () => resolvePosition(ship, space, resolve);
+        space.onclick = () => {
+          mainBoardView.unhighlightAll();
+          resolvePosition(ship, space, resolve);
+        }
       });
     });
     return position;
@@ -57,7 +60,7 @@ export default async function placeShips(players) {
 
   async function resetShips(resolve) {
     board.resetBoard();
-    mainBoardView.updateShips();
+    mainBoardView.update();
     await setShips();
     resolve();
   }
@@ -74,7 +77,7 @@ export default async function placeShips(players) {
       for (const ship of mainPlayer.ships) {
         const position = await getUserPosition(ship);
         board.placeShip(position, ship);
-        mainBoardView.updateShips();
+        mainBoardView.update();
       }
     
       removeSpaceListeners();

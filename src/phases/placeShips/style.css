@@ -7,14 +7,13 @@
 }
 
 #add-ship-buttons {
-    left: 40px;
     position: absolute;
     display: flex;
     align-items: center;
     gap: 100px;
 }
 
-#add-ship-buttons .button {
+.button {
     width: 150px;
     height: 60px;
     display: grid;
@@ -25,11 +24,11 @@
     box-shadow: inset 0px 0px 7px rgba(0,0,0,0.3);
 }
 
-#add-ship-buttons .button:hover{
+.button:hover{
     box-shadow: inset 0px 0px 2px rgba(0,0,0,0.5);
 }
 
-#add-ship-buttons .button:active{
+.button:active{
     transition: 120ms ease-out;
     box-shadow: inset 0px 0px 5px rgba(0,0,0,0.5);
 }
@@ -46,7 +45,7 @@
     letter-spacing: -4px;
     font-size: 1.1rem;
     overflow: auto;
-    color: green;
+    color: cadetblue;
     display: flex;
     justify-content: center;
     align-items: center;

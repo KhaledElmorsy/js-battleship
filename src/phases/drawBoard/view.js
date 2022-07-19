@@ -26,9 +26,12 @@ export default function view(player, index) {
     }
   }
 
-  function updateShips() {
+  function update() {
     spaceElements.forEach((spaceElement) => {
       const { col, row } = getIndices(spaceElement);
+      if (player.board.board[row][col].isHit)
+        spaceElement.classList.add('hit');
+
       if (player.board.board[row][col].parent) {
         spaceElement.classList.add('ship');
       }
@@ -57,5 +60,5 @@ export default function view(player, index) {
     })
   }
 
-  return { show, hide, updateShips, spaceElements, getIndices, highlight, unhighlightAll };
+  return { show, hide, update, spaceElements, getIndices, highlight, unhighlightAll };
 }

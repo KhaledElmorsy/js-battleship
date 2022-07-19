@@ -1,0 +1,30 @@
+#play-area{
+    width: max(1200px, 100%);
+    height: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.board {
+    display: grid;
+    grid-template: repeat(15, 30px) / repeat(15, 30px);
+    gap: 5px;
+}
+
+.board[data-player="0"] .space.ship {
+    background-color: cadetblue;
+}
+
+.space {
+    cursor: pointer;
+    transition: 200ms ease-out;
+    background-color: rgb(238, 254, 255);
+    box-shadow: inset 1px 1px 3px rgba(0,0,0,0.2);
+}
+
+.space:hover{
+    background-color: rgb(199, 234, 235);
+    box-shadow: inset 1px 1px 6px rgba(0,0,0,0.3);
+}

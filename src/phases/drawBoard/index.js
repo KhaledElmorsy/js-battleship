@@ -1,4 +1,5 @@
 import boardView from './view';
+import './style.css'
 
 export default async function (players) {
   players.forEach((player, i) => {
