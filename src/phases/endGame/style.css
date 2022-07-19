@@ -1,0 +1,21 @@
+#winner-message {
+    font-size: 3rem;
+    color: cadetblue;
+    transition: 500ms ease-out;
+    transform: scale(1);
+}
+
+#winner-message.hide {
+    transform: scale(0);
+}
+
+#play-again {
+    transform: 300ms ease-out;
+    transition: 300ms ease-out;
+    opacity: 1;
+    cursor: pointer;
+}
+
+#play-again.hide {
+    opacity: 0;
+}

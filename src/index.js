@@ -1,9 +1,15 @@
 import './style.css'
 import phases from './phases';
 
-
-phases.newGame()
+async function playGame() {
+  await phases.newGame()
   .then(phases.setUpPlayers)
   .then(phases.drawBoard)
   .then(phases.placeShips)
-  .then(console.log)
+  .then(phases.battle)
+  .then(phases.endGame)
+
+  playGame();
+}
+
+playGame();
